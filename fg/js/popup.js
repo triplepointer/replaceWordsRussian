@@ -26,8 +26,21 @@ chrome.storage.sync.get("fileIsAlreadyChosen",function(innerfileIsAlreadyChosen)
   }
   fileIsAlreadyChosenNode.innerHTML = innerfileIsAlreadyChosen.fileIsAlreadyChosen
 });
+var urlNode = document.querySelector('#JSON-dictionary-url');
+chrome.storage.sync.get("url", function(innerUrl) {
+  urlNode.value = innerUrl.url;
+}
+);
 
 // Functions
+function IsJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
   function readBlob() {
 
     let files = document.getElementById('JSON-dictionary').files;
@@ -41,18 +54,22 @@ chrome.storage.sync.get("fileIsAlreadyChosen",function(innerfileIsAlreadyChosen)
     // If we use onloadend, we need to check the readyState.
     reader.onloadend = function(evt) {
     if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+      if(IsJsonString(evt.target.result)) {
         data = (JSON.parse(evt.target.result));
         document.querySelector('#file-is-already-choosed').innerHTML = "файл "+ file.name +" уже был выбран, можете выбрать новый";
-        };
+        }
+        else {
+          alert("Это не тот формат!");
+        }
     }
+  }
 
     reader.readAsText(file);
   }
 
   function getDataFromUrl(url) {
     $.get( url, function( data ) {
-      dataUrl = data; // HTML content of the jQuery.ajax page
-      document.write(dataUrl);
+      dataUrl = JSON.parse(data); // HTML content of the jQuery.ajax page
     });
     }
 
@@ -83,18 +100,24 @@ chrome.storage.sync.get("fileIsAlreadyChosen",function(innerfileIsAlreadyChosen)
         alert('Please select a file or wait!');
         return;
       }
-      else if(chooseUrl && document.querySelector('#JSON-dictionary-url').value.length === 0){
+      if(chooseUrl && document.querySelector('#JSON-dictionary-url').value.length === 0){
         alert('Please enter an url or wait!');
         return;
       }
-      chrome.storage.local.set({
-        variable: data
-    },
-     function () {
-    chrome.tabs.executeScript({
-            file: "fg/js/content.js"
-        });
-    });
+      if(chooseFile && data !== null) {
+        chrome.storage.local.set({ variable: data }, function () {
+          chrome.tabs.executeScript({
+                file: "fg/js/content.js"
+          });
+          });
+      }
+      else if(chooseUrl && dataUrl !== null) {
+        chrome.storage.local.set({ variable: dataUrl }, function () {
+          chrome.tabs.executeScript({
+                file: "fg/js/content.js"
+          });
+          });
+      }
     }
   );
   document.querySelector('#save-settings').addEventListener(
@@ -122,10 +145,10 @@ chrome.storage.sync.get("fileIsAlreadyChosen",function(innerfileIsAlreadyChosen)
           console.log("Runtime error.");
         }
       })
-      // chrome.storage.sync.set({ "url" : url }, function() {
-      //   if (chrome.runtime.error) {
-      //     console.log("Runtime error.");
-      //   }
-      // });
+      chrome.storage.sync.set({ "url" : url }, function() {
+           if (chrome.runtime.error) {
+             console.log("Runtime error.");
+          }
+      });
     }
   )

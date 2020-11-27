@@ -4,24 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Replace Words Russian</title>
+    <link rel="stylesheet" href="../lib/bootstrap.min.css">
 </head>
 <style>
     span {
         color:black;
         font-size: 12px;
     }
+    .card-wrap {
+        padding: 10px;
+    }
+    input[type="file"] {
+        font-size: 12px;
+    }
 </style>
 <body>
-    <h2>Выбор словаря</h2>
-    <h3>JSON файл<h3>
-    <input type="radio" id="choose-file" name="dictionary"> <span>Использовать свой словарь</span>
-    <div id="file-is-already-choosed"></div>
-    <input id="JSON-dictionary" type="file">
-    <input type="radio" id="choose-url" name="dictionary"> <span>Использовать удаленный файл</span>
-    <input id="JSON-dictionary-url" type="text" value="" placeholder="Введите URL до json">
-    <input id="confirm-url" type="button" value="Подтвердить url">
-    <input id="save-settings" type="button" value="Сохранить настройки">
-    <input id="activate-replacing" type="button" value="Заменить слова">
+<div class="card" style="width: 18rem;">
+    <div class=card-wrap>
+    <h5 class="card-title card-header">Выбор словаря</h5>
+    <div class="card-footer"><input type="radio" id="choose-file" name="dictionary"> <span>Использовать свой словарь</span></div>
+    <p id="file-is-already-choosed" class="list-group-item" style="font-size: 12px;"></p>
+    <input id="JSON-dictionary" class="btn btn-outline-primary btn-lg btn-block" type="file">
+    <div class="card-footer"><input type="radio" id="choose-url" name="dictionary"> <span>Использовать удаленный файл</span></div>
+    <input id="JSON-dictionary-url" class="form-control" type="text" value="" placeholder="Введите URL до json">
+    <input id="confirm-url" class="btn btn-primary  btn-lg btn-block" type="button" value="Подтвердить url">
+    <input id="save-settings" class="btn btn-success  btn-lg btn-block" type="button" value="Сохранить настройки">
+    <input id="activate-replacing" class="btn btn-warning  btn-lg btn-block" type="button" value="Заменить слова">    
+    </div>
+</div>
     <script src="../lib/jquery-3.5.1.min.js"></script>
     <script src="js/popup.js"></script>
 </body>
