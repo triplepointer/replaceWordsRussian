@@ -72,7 +72,12 @@ function IsJsonString(str) {
 
   function getDataFromUrl(url) {
     $.get( url, function( data ) {
-      dataUrl = JSON.parse(data); // HTML content of the jQuery.ajax page
+      if(IsJsonString(data)) {
+        dataUrl = JSON.parse(data);
+        }
+        else {
+          alert("Это не тот формат!");
+        } // HTML content of the jQuery.ajax page
     });
     }
 
