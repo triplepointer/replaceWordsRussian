@@ -24,8 +24,7 @@
             "js": [
                 "lib/findAndReplaceDOMText.js",
                 "fg/js/content.js"
-            ],
-            "css": ["fg/css/client.css"]
+            ]
         }
     ],
     "web_accessible_resources": ["lib/findAndReplaceDOMText.js"]

@@ -9,6 +9,9 @@ var dataUrl = null;
 chrome.storage.sync.get('data', function(innerData) {
   data = innerData.data;
 });
+chrome.storage.sync.get('dataUrl', function(innerDataUrl) {
+  dataUrl = innerDataUrl.dataUrl;
+});
 var chooseFileNode = document.querySelector('#choose-file');
 chrome.storage.sync.get( "chooseFile", function(innerChooseFile) {
   chooseFile = innerChooseFile.chooseFile;
@@ -139,6 +142,11 @@ function IsJsonString(str) {
           console.log("Runtime error.");
         }
       });
+      chrome.storage.sync.set({"dataUrl": dataUrl}, function() {
+        if(chrome.runtime.error) {
+          console.log("Runtime error");
+        }
+      })
       var fileIsAlreadyChosen = document.querySelector('#file-is-already-choosed').innerHTML;
       chrome.storage.sync.set({ "fileIsAlreadyChosen" : fileIsAlreadyChosen }, function() {
         if (chrome.runtime.error) {

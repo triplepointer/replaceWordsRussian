@@ -1,11 +1,4 @@
 (function(){
-    var s = document.createElement('script');
-    // TODO: add "script.js" to web_accessible_resources in manifest.json
-    s.src = chrome.runtime.getURL('lib/findAndReplaceDOMText.js');
-    s.onload = function() {
-        this.remove();
-    };
-    (document.head || document.documentElement).appendChild(s);
     class Replacer {
         constructor() {
             this.elements = document.getElementsByTagName('*');
@@ -25,6 +18,7 @@
         var getdata=data.variable
         // document.write(typeof getdata);
             getdata.forEach((el, index) => {
+                // document.write(el.word_1);
                 replacer.replaceWords(el.word_1, el.word_2);
                 // document.write(el[word_1], el[word_2]);
             }
