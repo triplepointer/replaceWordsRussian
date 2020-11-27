@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replace Words Russian</title>
+</head>
+<style>
+    span {
+        color:black;
+        font-size: 12px;
+    }
+</style>
+<body>
+    <h2>Выбор словаря</h2>
+    <h3>JSON файл<h3>
+    <input type="radio" id="choose-file" name="dictionary"> <span>Использовать свой словарь</span>
+    <div id="file-is-already-choosed"></div>
+    <input id="JSON-dictionary" type="file">
+    <input type="radio" id="choose-url" name="dictionary"> <span>Использовать удаленный файл</span>
+    <input id="JSON-dictionary-url" type="text" value="" placeholder="Введите URL до json">
+    <input id="confirm-url" type="button" value="Подтвердить url">
+    <input id="save-settings" type="button" value="Сохранить настройки">
+    <input id="activate-replacing" type="button" value="Заменить слова">
+    <script src="../lib/jquery-3.5.1.min.js"></script>
+    <script src="js/popup.js"></script>
+</body>
+</html>
